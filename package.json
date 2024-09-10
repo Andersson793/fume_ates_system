@@ -11,12 +11,17 @@
   },
   "dependencies": {
     "@nuxtjs/tailwindcss": "^6.12.1",
-    "@vitejs/plugin-vue-jsx": "^4.0.1",
+    "chart.js": "^4.4.4",
     "lucide-vue-next": "^0.429.0",
     "nuxt-headlessui": "^1.2.0",
-    "vue": "latest"
+    "vue": "latest",
+    "vue-chartjs": "^5.3.1"
   },
   "devDependencies": {
+    "@pinia/nuxt": "^0.5.4",
     "nuxt": "^3.13.0"
+  },
+  "overrides": {
+    "vue": "latest"
   }
 }
