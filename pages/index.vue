@@ -1,132 +1,207 @@
 <script>
-import { Popover, PopoverButton, PopoverPanel } from "@headlessui/vue";
+import {
+    Combobox,
+    ComboboxInput,
+    ComboboxOptions,
+    ComboboxOption,
+} from "@headlessui/vue";
 import {
     CircleEllipsis,
     Ellipsis,
-    EllipsisVerticalIcon,
     LucideEclipse,
     BirdIcon,
+    Plus,
 } from "lucide-vue-next";
+
 export default {
+    data() {
+        return {
+            form: {
+                combobox: {
+                    value: "",
+                    query: "",
+                    items: [
+                        "model",
+                        "test",
+                        "mono",
+                        "pong",
+                        "ping",
+                        "meta",
+                        "mutant",
+                        "motor",
+                    ],
+                },
+                price: "",
+                items: {
+                    items: [],
+                    total: "",
+                },
+                date: "",
+                description: "",
+            },
+        };
+    },
     mounted() {
         useWebsiteStore().currentPage = "home";
     },
+    computed: {
+        filteredItems() {
+            if (this.form.combobox.value) {
+                return this.form.combobox.items.slice(0, 5);
+            } else {
+                const filtered = this.form.combobox.items.filter((item) =>
+                    item
+                        .toLowerCase()
+                        .includes(this.form.combobox.query.toLowerCase()),
+                );
+
+                return filtered.slice(0, 5);
+            }
+        },
+
+        clearForm() {
+            this.form.combobox.value = "";
+            this.form.combobox.query = "";
+            this.form.price = "";
+            this.form.items.items = [];
+            this.form.date = "";
+        },
+
+        newValue() {
+            if (this.form.combobox.query != "") {
+                return this.form.combobox.query;
+            }
+        },
+
+        ItemsGetTotal() {
+            let total = 0;
+
+            this.form.items.items.forEach((item) => {
+                total += item.price;
+            });
+
+            return total;
+        },
+    },
+    methods: {
+        addItem() {
+            const item = {
+                name: this.form.combobox.value,
+                price: this.form.price,
+            };
+
+            this.form.items.items.push(item);
+
+            this.form.items.total = this.ItemsGetTotal;
+            this.form.combobox.value = "";
+            this.form.price = "";
+        },
+    },
     components: {
-        EllipsisVerticalIcon,
         CircleEllipsis,
         LucideEclipse,
         Ellipsis,
         BirdIcon,
+        Combobox,
+        ComboboxInput,
+        ComboboxOption,
+        ComboboxOptions,
+        Plus,
     },
 };
 </script>
 <template>
-    <main class="grid grid-cols-2 gap-10 p-5">
-        <AppPanel title_panel="Title panel">
-            <table class="table-auto bg-blue-200 w-full">
-                <thead>
-                    <tr>
-                        <th
-                            class="font-semibold whitespace-nowrap text-left p-4"
-                        >
-                            #
-                        </th>
-                        <th
-                            class="font-semibold whitespace-nowrap text-left p-4"
-                        >
-                            Item
-                        </th>
-                        <th
-                            class="font-semibold whitespace-nowrap text-left p-4"
-                        >
-                            Date
-                        </th>
-                        <th
-                            class="font-semibold whitespace-nowrap text-left p-4"
-                        >
-                            Time
-                        </th>
-                        <th
-                            class="font-semibold whitespace-nowrap text-left p-4"
-                        >
-                            Type
-                        </th>
-                        <th
-                            class="font-semibold whitespace-nowrap text-left p-4"
-                        >
-                            opt
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="bg-pink-100" v-for="item in 10">
-                        <td
-                            class="font-semibold whitespace-nowrap text-left p-4"
-                        >
-                            1
-                        </td>
-                        <td
-                            class="font-semibold whitespace-nowrap text-left p-4"
-                        >
-                            Película fume parabrisa
-                        </td>
-                        <td
-                            class="font-semibold whitespace-nowrap text-left p-4"
-                        >
-                            12/12/2001
-                        </td>
-                        <td
-                            class="font-semibold whitespace-nowrap text-left p-4"
-                        >
-                            16:30
-                        </td>
-                        <td
-                            class="font-semibold whitespace-nowrap text-left p-4"
-                        >
-                            up
-                        </td>
-                        <td
-                            class="fixed font-semibold whitespace-nowrap text-left p-4"
-                        >
-                            <HeadlessPopover>
-                                <HeadlessPopoverButton
-                                    class="select-none outline-none"
-                                >
-                                    <EllipsisVerticalIcon
-                                        class="inline-flex items-center"
-                                    />
-                                </HeadlessPopoverButton>
-                                <HeadlessPopoverPanel
-                                    class="relative top-2 bg-green-100 grid grid-cols-1 gap-2 p-1 rounded-lg"
-                                >
-                                    <div
-                                        class="hover:bg-pink-100 rounded-md p-2 px-3 cursor-pointer inline-flex items-center"
-                                    >
-                                        <span class="pr-5">Item 1</span>
-                                        <BirdIcon />
-                                    </div>
-
-                                    <div
-                                        class="hover:bg-pink-100 rounded-md p-3 cursor-pointer inline-flex items-center"
-                                    >
-                                        <span class="pr-5">Item 1</span>
-                                        <BirdIcon />
-                                    </div>
-
-                                    <div
-                                        class="hover:bg-pink-100 rounded-md p-3 cursor-pointer inline-flex items-center"
-                                    >
-                                        <span class="pr-5">Item 1</span>
-                                        <BirdIcon />
-                                    </div>
-                                </HeadlessPopoverPanel>
-                            </HeadlessPopover>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    <main class="grid grid-cols-5 gap-10 p-5">
+        <AppPanel title_panel="Title panel" class="col-span-3 row-span-2">
+            <Table />
         </AppPanel>
 
-        <AppPanel title_panel="Title panel"> add item / remove item </AppPanel>
+        <AppPanel title_panel="Title panel" class="col-span-2">
+            <div class="col-span-5 flex flex-col px-20">
+                <label for="ident" class="mb-2">Item name</label>
+                <Combobox v-model="form.combobox.value">
+                    <ComboboxInput
+                        class="bg-green-100 border-none rounded-sm p-3 text-sm leading-5 text-gray-900 focus:ring-0 mb-10"
+                        @change="form.combobox.query = $event.target.value"
+                        name="ident"
+                    />
+                    <ComboboxOptions>
+                        <ComboboxOption :value="newValue">
+                            Create item: {{ newValue }}
+                        </ComboboxOption>
+                        <ComboboxOption
+                            v-for="item in filteredItems"
+                            :value="item"
+                            :key="item"
+                        >
+                            {{ item }}
+                        </ComboboxOption>
+                    </ComboboxOptions>
+                </Combobox>
+                <div class="inline-flex items-center mb-10">
+                    <input
+                        type="number"
+                        class="px-2 py-3 w-48 mr-3 rounded-sm"
+                        placeholder="R$"
+                        v-model="form.price"
+                    />
+                    <button class="bg-blue-200 rounded-md p-2" @click="addItem">
+                        <Plus size="20" />
+                    </button>
+                </div>
+
+                <div
+                    class="bg-fuchsia-200 mb-10"
+                    v-show="form.items.items.length > 0"
+                >
+                    <ul>
+                        <li
+                            class="bg-red-100 rounded-sm p-2 flex whitespace-nowrap"
+                            v-for="item in form.items.items"
+                        >
+                            <span class="font-bold mr-10 w-full">{{
+                                item.name
+                            }}</span>
+                            <span> {{ item.price }} </span>
+                        </li>
+
+                        <li
+                            class="bg-red-100 rounded-sm p-2 flex whitespace-nowrap"
+                        >
+                            <span class="font-bold mr-10 w-full">Total :</span>
+                            <span class="font-bold">{{
+                                form.items.total
+                            }}</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <input
+                    type="date"
+                    class="px-2 py-3 mb-10 w-48 rounded-sm"
+                    v-model="form.date"
+                />
+
+                <label for="description" class="mb-2">Description</label>
+                <textarea
+                    maxlength="120"
+                    name="desciption"
+                    id="description"
+                    class="w-full h-16 resize-none p-1 rounded-sm"
+                    v-model="form.description"
+                ></textarea>
+
+                <div class="flex justify-end mt-10 mr-5">
+                    <button
+                        class="bg-rose-900 rounded-md px-3 py-1 text-white mr-10 font-bold"
+                        @click="clearForm"
+                    >
+                        Discarte
+                    </button>
+
+                    <AppButton> Save </AppButton>
+                </div>
+            </div>
+        </AppPanel>
     </main>
 </template>

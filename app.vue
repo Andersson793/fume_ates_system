@@ -1,7 +1,6 @@
 <script lang="ts">
 import {
     BoltIcon,
-    ChartScatterIcon,
     ChartSplineIcon,
     HomeIcon,
     UserSearchIcon,
@@ -75,7 +74,7 @@ export default {
                                 <template #icon>
                                     <UserSearchIcon />
                                 </template>
-                                Root
+                                Subscription
                             </MenuItem>
                         </NuxtLink>
                     </ul>

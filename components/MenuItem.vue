@@ -1,6 +1,5 @@
 <script>
 import { HouseIcon } from "lucide-vue-next";
-import { h } from "vue";
 
 export default {
     data() {

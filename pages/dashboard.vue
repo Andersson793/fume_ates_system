@@ -30,76 +30,80 @@ Chart.defaults.color = "black";
 export default {
     data() {
         return {
-            id: useId(),
-            DoughnutData: {
-                title: "test",
-                datasets: [
-                    {
-                        data: [200, 50],
-                        backgroundColor: ["red", "green"],
+            charts: {
+                Doughnut: {
+                    data: {
+                        title: "test",
+                        datasets: [
+                            {
+                                data: [200, 50],
+                                backgroundColor: ["red", "green"],
+                            },
+                        ],
+                        labels: ["test", "mono"],
                     },
-                ],
-                labels: ["test", "mono"],
-            },
-
-            options: {
-                plugins: {
-                    legend: {
-                        display: true,
-                    },
-                    title: {
-                        display: true,
-                        text: "Custom Chart Title",
+                    options: {
+                        plugins: {
+                            legend: {
+                                display: false,
+                            },
+                            title: {
+                                display: true,
+                                text: "Custom Chart Title",
+                            },
+                        },
                     },
                 },
-            },
 
-            BarData: {
-                title: "mode",
-                labels: [
-                    "janeiro",
-                    "fevereiro",
-                    "marco",
-                    "abril",
-                    "maio",
-                    "junio",
-                    "julio",
-                    "agosto",
-                    "setembro",
-                    "outubro",
-                    "novembro",
-                    "dezembro",
-                ],
-
-                datasets: [
-                    {
-                        data: [10, 14, 20, 30, 10, 14, 20, 31, 14, 20, 30, 45],
-                        backgroundColor: [
-                            "red",
-                            "blue",
-                            "pink",
-                            "gray",
-                            "orange",
-                            "cian",
-                            "green",
+                Bar: {
+                    data: {
+                        title: "mode",
+                        labels: [
+                            "janeiro",
+                            "fevereiro",
+                            "marco",
+                            "abril",
+                            "maio",
+                            "junio",
+                            "julio",
+                            "agosto",
+                            "setembro",
+                            "outubro",
+                            "novembro",
+                            "dezembro",
                         ],
-                        borderColor: "white",
-                        borderWidth: 2,
-                        borderRadius: 3,
-                        color: "blue",
-                    },
-                ],
-            },
 
-            BarOptions: {
-                options: {
-                    plugins: {
-                        legend: {
-                            display: false,
-                        },
-                        title: {
-                            display: true,
-                            text: "Custom Chart Title",
+                        datasets: [
+                            {
+                                data: [
+                                    10, 14, 20, 30, 10, 14, 20, 31, 14, 20, 30,
+                                    45,
+                                ],
+                                backgroundColor: [
+                                    "red",
+                                    "blue",
+                                    "pink",
+                                    "gray",
+                                    "orange",
+                                    "cian",
+                                    "green",
+                                ],
+                                borderColor: "white",
+                                borderWidth: 2,
+                                borderRadius: 3,
+                                color: "blue",
+                            },
+                        ],
+                    },
+                    options: {
+                        plugins: {
+                            legend: {
+                                display: false,
+                            },
+                            title: {
+                                display: true,
+                                text: "Custom Chart Title",
+                            },
                         },
                     },
                 },
@@ -113,13 +117,37 @@ export default {
 };
 </script>
 <template>
-    <main class="grid grid-cols-4 gap-10 p-5">
+    <main class="grid grid-cols-4 gap-10 p-10">
         <AppPanel title_panel="Title panel" class="col-span-3 row-span-2">
-            <Bar :data="BarData" :options="BarOptions.options" />
+            <Bar
+                :data="charts.Bar.data"
+                :options="charts.Bar.options"
+                class="col-span-5"
+            />
         </AppPanel>
 
         <AppPanel title_panel="Title panel">
-            <Doughnut :data="DoughnutData" :options="options" />
+            <Doughnut
+                :data="charts.Doughnut.data"
+                :options="charts.Doughnut.options"
+                class="col-span-5"
+            />
+            <div class="col-span-5 mt-5 flex justify-center">
+                <div
+                    class="p-1 inline-flex items-center"
+                    v-for="(value, index) in charts.Doughnut.data.datasets[0]
+                        .data"
+                >
+                    <div
+                        class="rounded-full w-5 h-5 mr-2"
+                        :class="{
+                            'bg-red-300': index == 0,
+                            'bg-green-300': index === 1,
+                        }"
+                    ></div>
+                    <span class="p-1">{{ value }}</span>
+                </div>
+            </div>
         </AppPanel>
     </main>
 </template>
