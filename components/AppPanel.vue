@@ -10,6 +10,7 @@ export default {
             default: 1,
         },
     },
+    //use template for 'main' tag
 };
 </script>
 <template>

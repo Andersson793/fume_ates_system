@@ -4,7 +4,7 @@ export default {
     data() {
         return {
             table: {
-                headers: ["#", "Item", "Date", "Value", "Status", ""],
+                headers: ["#", "Item", "Date", "Value", "Status"],
                 itemsMenu: [
                     {
                         label: "Item menu",
@@ -53,6 +53,9 @@ export default {
                 <td class="font-semibold whitespace-nowrap text-left p-4">
                     up
                 </td>
+
+                <!--
+
                 <td class="fixed font-semibold whitespace-nowrap text-left p-4">
                     <HeadlessPopover>
                         <HeadlessPopoverButton class="select-none outline-none">
@@ -72,6 +75,8 @@ export default {
                         </HeadlessPopoverPanel>
                     </HeadlessPopover>
                 </td>
+
+                -->
             </tr>
         </tbody>
     </table>

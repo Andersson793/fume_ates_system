@@ -1,1 +1,1 @@
-## Fastdashboard
+## FastDashboard

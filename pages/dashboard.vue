@@ -40,7 +40,7 @@ export default {
                                 backgroundColor: ["red", "green"],
                             },
                         ],
-                        labels: ["test", "mono"],
+                        labels: ["Too", "Bar"],
                     },
                     options: {
                         plugins: {
@@ -134,15 +134,17 @@ export default {
             />
             <div class="col-span-5 mt-5 flex justify-center">
                 <div
-                    class="p-1 inline-flex items-center"
+                    class="p-1 inline-flex items-center cursor-pointer"
                     v-for="(value, index) in charts.Doughnut.data.datasets[0]
                         .data"
+                    :title="charts.Doughnut.data.labels[index]"
                 >
                     <div
                         class="rounded-full w-5 h-5 mr-2"
-                        :class="{
-                            'bg-red-300': index == 0,
-                            'bg-green-300': index === 1,
+                        :style="{
+                            backgroundColor:
+                                charts.Doughnut.data.datasets[0]
+                                    .backgroundColor[index],
                         }"
                     ></div>
                     <span class="p-1">{{ value }}</span>

@@ -69,12 +69,12 @@ export default {
                                 Configs
                             </MenuItem>
                         </NuxtLink>
-                        <NuxtLink to="/">
+                        <NuxtLink to="/account">
                             <MenuItem>
                                 <template #icon>
                                     <UserSearchIcon />
                                 </template>
-                                Subscription
+                                Account
                             </MenuItem>
                         </NuxtLink>
                     </ul>

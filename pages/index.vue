@@ -111,17 +111,17 @@ export default {
 };
 </script>
 <template>
-    <main class="grid grid-cols-5 gap-10 p-5">
-        <AppPanel title_panel="Title panel" class="col-span-3 row-span-2">
+    <main class="grid grid-cols-4 row-auto gap-10 p-5">
+        <AppPanel title_panel="Title panel" class="col-span-2">
             <Table />
         </AppPanel>
 
-        <AppPanel title_panel="Title panel" class="col-span-2">
+        <AppPanel title_panel="Title panel" class="col-span-2 row-span-2">
             <div class="col-span-5 flex flex-col px-20">
                 <label for="ident" class="mb-2">Item name</label>
                 <Combobox v-model="form.combobox.value">
                     <ComboboxInput
-                        class="bg-green-100 border-none rounded-sm p-3 text-sm leading-5 text-gray-900 focus:ring-0 mb-10"
+                        class="bg-green-100 border-none rounded-sm p-4 text-sm leading-5 text-gray-900 focus:ring-0 mb-5"
                         @change="form.combobox.query = $event.target.value"
                         name="ident"
                     />
@@ -138,17 +138,23 @@ export default {
                         </ComboboxOption>
                     </ComboboxOptions>
                 </Combobox>
-                <div class="inline-flex items-center mb-10">
-                    <input
-                        type="number"
-                        class="px-2 py-3 w-48 mr-3 rounded-sm"
-                        placeholder="R$"
-                        v-model="form.price"
-                    />
-                    <button class="bg-blue-200 rounded-md p-2" @click="addItem">
-                        <Plus size="20" />
-                    </button>
-                </div>
+
+                <input
+                    type="number"
+                    class="px-2 py-4 w-48 mr-3 rounded-sm"
+                    placeholder="R$"
+                    min="0"
+                    v-model="form.price"
+                />
+
+                <AppInput value="model" />
+
+                <button
+                    class="bg-blue-200 rounded-sm p-3 w-fit inline-flex items-center mt-5 mb-14"
+                    @click="addItem"
+                >
+                    <span class="mr-3">Add item</span> <Plus size="19" />
+                </button>
 
                 <div
                     class="bg-fuchsia-200 mb-10"
@@ -193,7 +199,7 @@ export default {
 
                 <div class="flex justify-end mt-10 mr-5">
                     <button
-                        class="bg-rose-900 rounded-md px-3 py-1 text-white mr-10 font-bold"
+                        class="bg-rose-900 rounded-sm px-4 py-2 text-white mr-10 font-bold"
                         @click="clearForm"
                     >
                         Discarte
