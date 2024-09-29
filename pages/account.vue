@@ -1,4 +1,5 @@
 <script>
+import AppMain from "~/components/app/AppMain.vue";
 import AppButton from "~/components/form/AppButton.vue";
 import AppInput from "~/components/form/AppInput.vue";
 
@@ -9,19 +10,48 @@ export default {
         };
     },
     methods: {},
-    components: { AppInput, AppButton },
+    components: { AppInput, AppButton, AppMain },
 };
 </script>
 <template>
-    <main class="grid grid-cols-4 row-auto gap-10 p-5">
-        <AppPanel class="col-span-4">
+    <AppMain>
+        <AppPanel title_panel="Account" class="col-start-3 col-span-2">
             <div>
-                <AppInput placeholder="User name" value="" label="User name" />
-            </div>
+                <span>Personal data</span>
+                <div class="pl-10 mb-16">
+                    <AppInput
+                        placeholder="Your name"
+                        value=""
+                        label="User name"
+                    />
+                    <AppInput
+                        placeholder="user@gmail.com"
+                        value=""
+                        label="User email"
+                    />
+                </div>
 
-            <div>
-                <AppButton> Save </AppButton>
+                <span>Change password</span>
+                <div class="pl-10">
+                    <AppInput
+                        placeholder="Password"
+                        value=""
+                        label="New password"
+                        type="password"
+                    />
+
+                    <AppInput
+                        placeholder="Password"
+                        value=""
+                        label="Repeat passoword"
+                        type="password"
+                    />
+                </div>
+
+                <div class="flex justify-end mt-16">
+                    <AppButton> Change </AppButton>
+                </div>
             </div>
         </AppPanel>
-    </main>
+    </AppMain>
 </template>

@@ -90,7 +90,9 @@ export default {
                 price: this.form.price,
             };
 
-            this.form.items.items.push(item);
+            this.form.combobox.value && this.form.price
+                ? this.form.items.items.push(item)
+                : false;
 
             this.form.items.total = this.ItemsGetTotal;
             this.form.combobox.value = "";
@@ -113,7 +115,7 @@ export default {
 <template>
     <main class="grid grid-cols-4 row-auto gap-10 p-5">
         <AppPanel title_panel="Title panel" class="col-span-2">
-            <Table />
+            <AppTable />
         </AppPanel>
 
         <AppPanel title_panel="Title panel" class="col-span-2 row-span-2">

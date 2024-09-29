@@ -10,15 +10,14 @@ export default {
             default: 1,
         },
     },
-    //use template for 'main' tag
 };
 </script>
 <template>
     <div class="bg-red-400 rounded-md">
-        <header class="p-3 font-bold">
+        <header class="px-5 py-2 font-bold">
             <h3 v-if="title_panel">{{ title_panel }}</h3>
         </header>
-        <div class="grid grid-cols-5 p-5">
+        <div class="flex justify-center py-6 px-5">
             <slot />
         </div>
     </div>
