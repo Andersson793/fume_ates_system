@@ -5,7 +5,7 @@ export default {
     data() {
         return {
             table: {
-                headers: ["#", "Item", "Date", "Value", "Status"],
+                headers: ["#", "Item", "Date", "Value", ""],
                 itemsMenu: [
                     {
                         label: "Item menu",
@@ -26,14 +26,14 @@ export default {
                         item: "Película fume parabrisa",
                         date: "12/12/2001",
                         value: 230,
-                        tag: "up",
+                        tag: "tag",
                     },
                     {
                         id: 2,
                         item: "Película fume parabrisa",
                         date: "12/12/2001",
                         value: 230,
-                        tag: "up",
+                        tag: "tag",
                     },
                     {
                         id: 3,
@@ -105,7 +105,7 @@ export default {
 };
 </script>
 <template>
-    <div>
+    <div class="w-full">
         <table class="table-auto bg-blue-200 w-full">
             <thead>
                 <tr>
@@ -137,7 +137,11 @@ export default {
                     </td>
 
                     <td class="font-semibold whitespace-nowrap text-left p-4">
-                        {{ item.tag }}
+                        <div
+                            class="py-0.5 px-2 rounded-sm bg-yellow-300 flex items-center justify-center w-fit"
+                        >
+                            <small>{{ item.tag }}</small>
+                        </div>
                     </td>
                 </tr>
             </tbody>
