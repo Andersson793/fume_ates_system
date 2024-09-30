@@ -17,7 +17,7 @@ export default {
         <header class="px-5 py-2 font-bold">
             <h3 v-if="title_panel">{{ title_panel }}</h3>
         </header>
-        <div class="flex justify-center py-6 px-5">
+        <div class="py-6 px-5">
             <slot />
         </div>
     </div>
