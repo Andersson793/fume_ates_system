@@ -15,42 +15,39 @@ export default {
 </script>
 <template>
     <AppMain>
-        <AppPanel title_panel="Account" class="col-start-3 col-span-2">
+        <AppPanel title_panel="User information" class="col-span-2">
             <div>
-                <span>Personal data</span>
+                <div class='py-5'>
+                    <span>User name</span>
+                    <p class='text-lg ml-5 px-2'>andersson793</p>
+
+                </div>
+                <div class='py-5'>
+                    <span>Email</span>
+                    <p class='text-lg ml-5 px-2'>andersson793@gmail.com</p>
+
+                </div>
+                
+            </div>
+        </AppPanel>
+        <AppPanel title_panel="Password" class="col-span-2">
+            <div>
+                <span>Change Password</span>
                 <div class="pl-10 mb-16">
                     <AppInput
-                        placeholder="Your name"
-                        value=""
-                        label="User name"
-                    />
-                    <AppInput
-                        placeholder="user@gmail.com"
-                        value=""
-                        label="User email"
-                    />
-                </div>
-
-                <span>Change password</span>
-                <div class="pl-10">
-                    <AppInput
-                        placeholder="Password"
+                    
                         value=""
                         label="New password"
-                        type="password"
+                        type='password'
                     />
-
                     <AppInput
-                        placeholder="Password"
+                        
                         value=""
-                        label="Repeat passoword"
-                        type="password"
+                        label="Repeat"
+                        type='password'
                     />
                 </div>
-
-                <div class="flex justify-end mt-16">
-                    <AppButton> Change </AppButton>
-                </div>
+                <AppButton>Chenge</AppButton>
             </div>
         </AppPanel>
     </AppMain>
