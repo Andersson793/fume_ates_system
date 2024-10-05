@@ -106,7 +106,7 @@ export default {
 </script>
 <template>
     <div class="w-full">
-        <table class="table-auto bg-blue-200 w-full">
+        <table class="table-auto bg-blue-200 w-full mb-5">
             <thead>
                 <tr>
                     <th
@@ -133,7 +133,7 @@ export default {
                         {{ item.date }}
                     </td>
                     <td class="font-semibold whitespace-nowrap text-left p-4">
-                        {{ item.value }}
+                        R$ {{ item.value }}
                     </td>
 
                     <td class="font-semibold whitespace-nowrap text-left p-4">
@@ -147,10 +147,12 @@ export default {
             </tbody>
         </table>
 
-        <Pagination
-            :pages="TablePagination.length"
-            :currentPage="currentPage"
-            :changeCurrentPage="changeCurrentPage"
-        />
+        <div class="flex justify-center">
+            <Pagination
+                :pages="TablePagination.length"
+                :currentPage="currentPage"
+                :changeCurrentPage="changeCurrentPage"
+            />
+        </div>
     </div>
 </template>
