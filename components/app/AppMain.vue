@@ -1,5 +1,5 @@
 <template>
-    <main class="grid grid-cols-6 row-auto gap-10 p-5">
+    <main class="grid grid-cols-8 gap-10 p-10">
         <slot />
     </main>
 </template>

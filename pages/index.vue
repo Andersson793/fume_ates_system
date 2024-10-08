@@ -11,7 +11,11 @@ import {
     LucideEclipse,
     BirdIcon,
     Plus,
+    CircleX,
 } from "lucide-vue-next";
+import AppButton from "~/components/form/AppButton.vue";
+import AppMain from "~/components/app/AppMain.vue";
+import AppInput from "~/components/form/AppInput.vue";
 
 export default {
     data() {
@@ -36,6 +40,7 @@ export default {
                     items: [],
                     total: "",
                 },
+                tags: [],
                 date: "",
                 description: "",
             },
@@ -65,6 +70,7 @@ export default {
             this.form.price = "";
             this.form.items.items = [];
             this.form.date = "";
+            this.form.description = "";
         },
 
         newValue() {
@@ -92,11 +98,25 @@ export default {
 
             this.form.combobox.value && this.form.price
                 ? this.form.items.items.push(item)
-                : false;
+                : alert("The form is empity");
 
             this.form.items.total = this.ItemsGetTotal;
             this.form.combobox.value = "";
             this.form.price = "";
+        },
+
+        addTag(i) {
+            this.form.tags.push(i);
+        },
+
+        removeTag(index) {
+            const newTag = this.form.tags.splice(index, 0);
+
+            this.form.tags === newTag;
+        },
+
+        saveForm() {
+            this.clearForm();
         },
     },
     components: {
@@ -109,23 +129,26 @@ export default {
         ComboboxOption,
         ComboboxOptions,
         Plus,
+        AppButton,
+        AppInput,
+        CircleX,
     },
 };
 </script>
 <template>
-    <main class="grid grid-cols-4 row-auto gap-10 p-5">
-        <AppPanel title_panel="Title panel" class="col-span-2">
+    <AppMain>
+        <AppPanel title_panel="Title panel" class="col-span-5">
             <AppTable />
         </AppPanel>
 
-        <AppPanel title_panel="Title panel" class="col-span-2 row-span-2">
-            <div class="col-span-5 flex flex-col px-20">
-                <label for="ident" class="mb-2">Item name</label>
+        <AppPanel title_panel="Title panel" class="col-span-3">
+            <div class="flex flex-col">
                 <Combobox v-model="form.combobox.value">
                     <ComboboxInput
                         class="bg-green-100 border-none rounded-sm p-4 text-sm leading-5 text-gray-900 focus:ring-0 mb-5"
                         @change="form.combobox.query = $event.target.value"
                         name="ident"
+                        placeholder="Product"
                     />
                     <ComboboxOptions>
                         <ComboboxOption :value="newValue">
@@ -144,19 +167,20 @@ export default {
                 <input
                     type="number"
                     class="px-2 py-4 w-48 mr-3 rounded-sm"
-                    placeholder="R$"
+                    placeholder="Price"
                     min="0"
                     v-model="form.price"
                 />
 
-                <AppInput value="model" />
-
-                <button
-                    class="bg-blue-200 rounded-sm p-3 w-fit inline-flex items-center mt-5 mb-14"
-                    @click="addItem"
-                >
-                    <span class="mr-3">Add item</span> <Plus size="19" />
-                </button>
+                <div class="flex justify-end">
+                    <button
+                        class="bg-blue-200 rounded-sm p-3 w-fit inline-flex items-center mt-5 mb-14"
+                        @click="addItem"
+                    >
+                        <span class="mr-3">Create new item</span>
+                        <Plus size="19" />
+                    </button>
+                </div>
 
                 <div
                     class="bg-fuchsia-200 mb-10"
@@ -184,6 +208,31 @@ export default {
                     </ul>
                 </div>
 
+                <div>
+                    <label for="">Add tags</label>
+                    <div class="mt-5">
+                        <div
+                            v-for="(item, index) in form.tags"
+                            class="py-2 px-3 rounded-3xl bg-yellow-300 flex items-center justify-center w-fit"
+                        >
+                            <small>{{ item }}</small>
+                            <div
+                                class="w-5 h-5 bg-blue-100 rounded-full flex justify-center items-center cursor-pointer ml-2"
+                                @click="removeTag(index)"
+                            >
+                                <CircleX />
+                            </div>
+                        </div>
+                    </div>
+                    <AppInput placeholder="Add new tag" :action="addTag" />
+                    <button
+                        class="bg-blue-200 rounded-sm p-3 w-fit inline-flex items-center mt-5 mb-14"
+                        @click="addTag"
+                    >
+                        <span class="mr-3">Add tag</span> <Plus size="19" />
+                    </button>
+                </div>
+
                 <input
                     type="date"
                     class="px-2 py-3 mb-10 w-48 rounded-sm"
@@ -199,17 +248,13 @@ export default {
                     v-model="form.description"
                 ></textarea>
 
-                <div class="flex justify-end mt-10 mr-5">
-                    <button
-                        class="bg-rose-900 rounded-sm px-4 py-2 text-white mr-10 font-bold"
-                        @click="clearForm"
-                    >
-                        Discarte
-                    </button>
-
+                <div class="flex justify-end mt-10">
+                    <AppButton @click="clearForm" class="bg-rose-900 mr-10">
+                        Discart
+                    </AppButton>
                     <AppButton> Save </AppButton>
                 </div>
             </div>
         </AppPanel>
-    </main>
+    </AppMain>
 </template>
