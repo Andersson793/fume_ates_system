@@ -4,6 +4,7 @@ import {
     ChartSplineIcon,
     HomeIcon,
     UserSearchIcon,
+    SquareChartGantt,
 } from "lucide-vue-next";
 
 export default {
@@ -31,6 +32,7 @@ export default {
         ChartSplineIcon,
         BoltIcon,
         UserSearchIcon,
+        SquareChartGantt,
     },
 };
 </script>
@@ -49,6 +51,14 @@ export default {
                                     <HomeIcon />
                                 </template>
                                 Home
+                            </MenuItem>
+                        </NuxtLink>
+                        <NuxtLink to="/manager">
+                            <MenuItem>
+                                <template #icon>
+                                    <SquareChartGantt />
+                                </template>
+                                Manager
                             </MenuItem>
                         </NuxtLink>
 

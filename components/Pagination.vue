@@ -1,10 +1,5 @@
 <script>
 export default {
-    data() {
-        return {
-            currentPage: this.$props.curerntPage,
-        };
-    },
     props: {
         pages: {
             type: Number,
@@ -32,7 +27,7 @@ export default {
         <span
             v-for="(item, index) in $props.pages"
             class="hover:bg-purple-200 py-2 px-3 mx-2 rounded-md cursor-pointer select-none"
-            :class="{ 'bg-red-500': index === currentPage }"
+            :class="{ 'bg-red-500': index === $props.currentPage }"
             @click="changeCurrentPage(index)"
         >
             {{ index + 1 }}
