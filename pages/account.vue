@@ -15,7 +15,7 @@ export default {
 </script>
 <template>
     <AppMain>
-        <AppPanel title_panel="User information" class="col-span-2">
+        <AppPanel title_panel="User information" class="col-span-3">
             <div>
                 <div class='py-5'>
                     <span>User name</span>
@@ -36,7 +36,7 @@ export default {
                 
             </div>
         </AppPanel>
-        <AppPanel title_panel="Password" class="col-span-2">
+        <AppPanel title_panel="Password" class="col-span-3">
             <div>
                 <span>Change Password</span>
                 <div class="pl-10 mb-16">
