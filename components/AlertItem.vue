@@ -14,6 +14,12 @@ export default {
             type: String,
             default: "",
         },
+        index: {
+            type: Number,
+        },
+        remove: {
+            type: Function,
+        },
     },
     components: { X },
 };
@@ -27,7 +33,7 @@ export default {
             <span class="mx-5">
                 {{ $props.user }}
             </span>
-            <span class="cursor-pointer">
+            <span class="cursor-pointer" @click="$props.remove($props.index)">
                 <X size="22" />
             </span>
         </div>

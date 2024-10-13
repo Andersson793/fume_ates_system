@@ -41,6 +41,11 @@ export default {
             ],
         };
     },
+    methods: {
+        removeAlert(index) {
+            this.alerts.splice(index, 1);
+        },
+    },
 };
 </script>
 <template>
@@ -52,10 +57,13 @@ export default {
         <AppPanel title_panel="Alerts" class="col-span-3">
             <div class="overflow-y-scroll" v-if="alerts.length > 0">
                 <AlertItem
-                    v-for="alert in alerts"
+                    v-for="(alert, index) in alerts"
+                    :index="index"
                     :user="alert.user"
                     :date="alert.date"
                     :body="alert.body"
+                    :remove="removeAlert"
+                    :key="index"
                 />
             </div>
 
