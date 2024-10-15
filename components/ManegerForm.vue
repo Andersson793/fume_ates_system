@@ -27,6 +27,7 @@ export default {
             },
         };
     },
+
     mounted() {
         useWebsiteStore().currentPage = "home";
     },
@@ -76,6 +77,10 @@ export default {
         saveForm() {
             this.clearForm();
         },
+
+        changeCombobox(i) {
+            this.form.combobox = i;
+        },
     },
     components: {
         CircleEllipsis,
@@ -92,21 +97,25 @@ export default {
 <template>
     <AppPanel title_panel="Create Product" class="col-span-8">
         <div class="flex flex-col">
-            <div class="grid grid-cols-2 gap-5">
+            <div class="grid grid-cols-2 gap-16">
                 <div>
-                    <Tier />
-                    <br />
-                    <input
-                        type="number"
-                        class="px-2 py-4 w-48 mr-3 rounded-sm"
-                        placeholder="Price"
-                        min="0"
-                        v-model="form.price"
-                    />
+                    <AppCombobox v-model="form.combobox" />
+                    {{ form.combobox + form.price }}
+                    <div class="flex mt-5">
+                        <input
+                            type="number"
+                            class="px-2 py-4 w-48 mr-3 rounded-sm"
+                            placeholder="Price"
+                            min="0"
+                            v-model="form.price"
+                        />
+                        <Tier />
+                    </div>
                 </div>
 
                 <div>
-                    <div class="mt-5 flex flex-wrap bg-cyan-200 h-12 p-1">
+                    <h5>Tags</h5>
+                    <div class="mt-5 flex flex-wrap h-12 p-1">
                         <div
                             v-for="(item, index) in form.tags"
                             :key="index"
@@ -166,18 +175,12 @@ export default {
                 </ul>
             </div>
 
-            <input
-                type="date"
-                class="px-2 py-3 mb-10 w-48 rounded-sm"
-                v-model="form.date"
-            />
-
             <label for="description" class="mb-2">Description</label>
             <textarea
                 maxlength="120"
                 name="desciption"
                 id="description"
-                class="w-full h-16 resize-none p-1 rounded-sm"
+                class="w-full h-48 resize-none p-2 rounded-sm"
                 v-model="form.description"
             ></textarea>
 

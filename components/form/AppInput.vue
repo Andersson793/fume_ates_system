@@ -27,8 +27,6 @@ export default {
 };
 </script>
 <template>
-    <label v-show="$props.label" :for="id">{{ $props.label }}</label>
-    <br />
     <input
         :id="id"
         :type="$props.type"

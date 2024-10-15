@@ -23,6 +23,9 @@ export default {
             ],
         };
     },
+    props: {
+        change: Function,
+    },
     computed: {
         newValue() {
             if (this.query != "") {
@@ -53,10 +56,13 @@ export default {
 <template>
     <Combobox v-model="value">
         <ComboboxInput
-            class="bg-green-100 border-none rounded-sm p-4 text-sm leading-5 text-gray-900 focus:ring-0 mb-5"
-            @change="query = $event.target.value"
+            class="bg-green-100 border-none rounded-sm p-4 text-sm leading-5 text-gray-900 focus:ring-0 w-full"
+            @change="
+                query = $event.target.value;
+                change(value);
+            "
             name="ident"
-            placeholder="Product name"
+            placeholder="Item name"
         />
         <ComboboxOptions>
             <ComboboxOption :value="newValue">
