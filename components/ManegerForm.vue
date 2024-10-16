@@ -8,8 +8,8 @@ import {
     CircleX,
 } from "lucide-vue-next";
 import AppButton from "~/components/form/AppButton.vue";
-import AppMain from "~/components/app/AppMain.vue";
 import AppInput from "~/components/form/AppInput.vue";
+import { Switch } from "@headlessui/vue";
 
 export default {
     data() {
@@ -19,12 +19,13 @@ export default {
                 price: "",
                 items: {
                     items: [],
-                    total: "",
+                    total: 0,
                 },
                 tags: [],
                 date: "",
                 description: "",
             },
+            enabled: false,
         };
     },
 
@@ -91,104 +92,137 @@ export default {
         AppButton,
         AppInput,
         CircleX,
+        Switch,
     },
 };
 </script>
 <template>
-    <AppPanel title_panel="Create Product" class="col-span-8">
+    <AppPanel title_panel="Create service" class="col-span-8">
         <div class="flex flex-col">
-            <div class="grid grid-cols-2 gap-16">
-                <div>
-                    <AppCombobox v-model="form.combobox" />
-                    {{ form.combobox + form.price }}
-                    <div class="flex mt-5">
-                        <input
-                            type="number"
-                            class="px-2 py-4 w-48 mr-3 rounded-sm"
-                            placeholder="Price"
-                            min="0"
-                            v-model="form.price"
-                        />
-                        <Tier />
+            <div class="grid grid-cols-3 gap-16">
+                <div class="col-span-2">
+                    <div>
+                        <AppCombobox v-model="form.combobox" />
+
+                        <div class="flex mt-5">
+                            <input
+                                type="number"
+                                class="px-2 py-4 w-48 mr-3 rounded-sm"
+                                placeholder="Price"
+                                min="0"
+                                v-model="form.price"
+                            />
+
+                            <Tier />
+                        </div>
+
+                        <div class="flex justify-end">
+                            <button
+                                class="bg-blue-200 rounded-sm p-3 w-fit inline-flex items-center mt-5 mb-14"
+                                @click="addItem"
+                            >
+                                <span class="mr-3">Create new item</span>
+                                <Plus size="19" />
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-fuchsia-200 my-10">
+                        <ul>
+                            <li class="bg-green-100 p-2 flex whitespace-nowrap">
+                                Service items
+                            </li>
+                            <li
+                                class="bg-red-100 rounded-sm p-2 flex whitespace-nowrap"
+                                v-if="form.items.items > 0"
+                                v-for="item in form.items.items"
+                            >
+                                <span class="font-bold mr-10 w-full">{{
+                                    item.name
+                                }}</span>
+                                <span> {{ item.price }} </span>
+                            </li>
+                            <li v-else class="p-5">No service items here !</li>
+
+                            <li class="bg-green-100 p-2 flex whitespace-nowrap">
+                                <span class="font-bold mr-10 w-full"
+                                    >Total
+                                </span>
+                                <span class="font-bold">{{
+                                    form.items.total
+                                }}</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="mt-10">
+                        <label for="description" class="mb-2"
+                            >Description</label
+                        >
+                        <textarea
+                            maxlength="120"
+                            name="desciption"
+                            id="description"
+                            class="w-full h-48 resize-none p-2 rounded-sm"
+                            v-model="form.description"
+                        ></textarea>
                     </div>
                 </div>
 
                 <div>
-                    <h5>Tags</h5>
-                    <div class="mt-5 flex flex-wrap h-12 p-1">
-                        <div
-                            v-for="(item, index) in form.tags"
-                            :key="index"
-                            class="py-2 px-3 rounded-3xl bg-yellow-300 flex items-center justify-center w-fit mx-2"
-                        >
-                            <small>{{ item }}</small>
+                    <div class="bg-blue-200">
+                        <div class="bg-blue-300 py-3 px-2 font-bold">Tags</div>
+
+                        <div class="flex flex-wrap items-center min-h-16 px-2">
                             <div
-                                class="w-5 h-5 bg-blue-100 rounded-full flex justify-center items-center cursor-pointer ml-2"
-                                @click="removeTag(index)"
+                                v-for="(item, index) in form.tags"
+                                :key="index"
+                                class="py-2 px-3 rounded-3xl bg-yellow-300 flex items-center justify-center w-fit mx-2"
                             >
-                                <CircleX />
+                                <small>{{ item }}</small>
+                                <div
+                                    class="w-5 h-5 bg-blue-100 rounded-full flex justify-center items-center cursor-pointer ml-2"
+                                    @click="removeTag(index)"
+                                >
+                                    <CircleX />
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <AppInput placeholder="Add new tag" :action="addTag" />
-                    <button
-                        class="bg-blue-200 rounded-sm p-1 w-fit inline-flex items-center mt-3 mb-14"
-                        @click="addTag"
-                    >
-                        <span class="mr-3">Add tag</span> <Plus size="19" />
-                    </button>
+                    <div class="my-10">
+                        <div
+                            class="flex items-center justify-between bg-green-200 p-2"
+                        >
+                            <p class="font-bold">
+                                is it paid? It's already finished
+                            </p>
+                            <Switch
+                                v-model="enabled"
+                                :class="enabled ? 'bg-teal-900' : 'bg-teal-700'"
+                                class="relative inline-flex h-8 w-[74px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
+                            >
+                                <span class="sr-only">Use setting</span>
+                                <span
+                                    aria-hidden="true"
+                                    :class="
+                                        enabled
+                                            ? 'translate-x-9'
+                                            : 'translate-x-0'
+                                    "
+                                    class="pointer-events-none inline-block h-7 w-[34px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out"
+                                />
+                            </Switch>
+                        </div>
+                    </div>
+                    <div class="flex justify-end mt-10">
+                        <AppButton @click="clearForm" class="bg-rose-900 mr-10">
+                            Discart
+                        </AppButton>
+                        <AppButton> Save </AppButton>
+                    </div>
                 </div>
-            </div>
-
-            <div class="flex justify-end">
-                <button
-                    class="bg-blue-200 rounded-sm p-3 w-fit inline-flex items-center mt-5 mb-14"
-                    @click="addItem"
-                >
-                    <span class="mr-3">Create new item</span>
-                    <Plus size="19" />
-                </button>
-            </div>
-
-            <div
-                class="bg-fuchsia-200 mb-10"
-                v-show="form.items.items.length > 0"
-            >
-                <ul>
-                    <li
-                        class="bg-red-100 rounded-sm p-2 flex whitespace-nowrap"
-                        v-for="item in form.items.items"
-                    >
-                        <span class="font-bold mr-10 w-full">{{
-                            item.name
-                        }}</span>
-                        <span> {{ item.price }} </span>
-                    </li>
-
-                    <li
-                        class="bg-red-100 rounded-sm p-2 flex whitespace-nowrap"
-                    >
-                        <span class="font-bold mr-10 w-full">Total :</span>
-                        <span class="font-bold">{{ form.items.total }}</span>
-                    </li>
-                </ul>
-            </div>
-
-            <label for="description" class="mb-2">Description</label>
-            <textarea
-                maxlength="120"
-                name="desciption"
-                id="description"
-                class="w-full h-48 resize-none p-2 rounded-sm"
-                v-model="form.description"
-            ></textarea>
-
-            <div class="flex justify-end mt-10">
-                <AppButton @click="clearForm" class="bg-rose-900 mr-10">
-                    Discart
-                </AppButton>
-                <AppButton> Save </AppButton>
             </div>
         </div>
     </AppPanel>

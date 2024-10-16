@@ -31,7 +31,7 @@ export default {
         :id="id"
         :type="$props.type"
         :placeholder="$props.placeholder"
-        class="px-2 py-4 w-full mr-3 rounded-sm mt-3"
+        class="px-2 py-4 w-full mr-3 rounded-sm"
         v-model="inputValue"
         @change="action(inputValue)"
     />
