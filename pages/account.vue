@@ -15,7 +15,7 @@ export default {
 </script>
 <template>
     <AppMain>
-        <AppPanel title_panel="User information" class="col-span-3">
+        <AppPanel title_panel="User information" class="col-span-4 col-start-3">
             <div>
                 <div class="py-5">
                     <span>User name</span>
