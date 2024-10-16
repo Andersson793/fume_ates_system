@@ -104,17 +104,13 @@ export default {
                     <div>
                         <AppCombobox v-model="form.combobox" />
 
-                        <div class="flex mt-5">
-                            <input
-                                type="number"
-                                class="px-2 py-4 w-48 mr-3 rounded-sm"
-                                placeholder="Price"
-                                min="0"
-                                v-model="form.price"
-                            />
-
-                            <Tier />
-                        </div>
+                        <input
+                            type="number"
+                            class="px-2 py-4 w-48 mr-3 rounded-sm mt-5"
+                            placeholder="Price"
+                            min="0"
+                            v-model="form.price"
+                        />
 
                         <div class="flex justify-end">
                             <button
@@ -170,10 +166,12 @@ export default {
                 </div>
 
                 <div>
-                    <div class="bg-blue-200">
+                    <div>
                         <div class="bg-blue-300 py-3 px-2 font-bold">Tags</div>
 
-                        <div class="flex flex-wrap items-center min-h-16 px-2">
+                        <div
+                            class="bg-blue-200 flex flex-wrap items-center min-h-16 px-2 mb-5"
+                        >
                             <div
                                 v-for="(item, index) in form.tags"
                                 :key="index"
@@ -188,35 +186,33 @@ export default {
                                 </div>
                             </div>
                         </div>
+                        <AppInput placeholder="Add new tag" :action="addTag" />
                     </div>
 
-                    <AppInput placeholder="Add new tag" :action="addTag" />
                     <div class="my-10">
                         <div
                             class="flex items-center justify-between bg-green-200 p-2"
                         >
-                            <p class="font-bold">
-                                is it paid? It's already finished
-                            </p>
+                            <p class="font-bold">It's already finished</p>
                             <Switch
                                 v-model="enabled"
                                 :class="enabled ? 'bg-teal-900' : 'bg-teal-700'"
-                                class="relative inline-flex h-8 w-[74px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
+                                class="relative inline-flex h-7 w-12 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
                             >
                                 <span class="sr-only">Use setting</span>
                                 <span
                                     aria-hidden="true"
                                     :class="
                                         enabled
-                                            ? 'translate-x-9'
+                                            ? 'translate-x-5'
                                             : 'translate-x-0'
                                     "
-                                    class="pointer-events-none inline-block h-7 w-[34px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out"
+                                    class="pointer-events-none inline-block h-6 w-6 transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out"
                                 />
                             </Switch>
                         </div>
                     </div>
-                    <div class="flex justify-end mt-10">
+                    <div class="flex justify-end items-end mt-10">
                         <AppButton @click="clearForm" class="bg-rose-900 mr-10">
                             Discart
                         </AppButton>
