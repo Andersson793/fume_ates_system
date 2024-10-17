@@ -24,23 +24,15 @@ export default {
                 tags: [],
                 date: "",
                 description: "",
+                finished: true,
             },
-            enabled: false,
         };
     },
 
     mounted() {
-        useWebsiteStore().currentPage = "home";
+        useWebsiteStore().currentPage = "manager";
     },
     computed: {
-        clearForm() {
-            this.form.combobox = "";
-            this.form.price = "";
-            this.form.items.items = [];
-            this.form.date = "";
-            this.form.description = "";
-        },
-
         ItemsGetTotal() {
             let total = 0;
 
@@ -52,6 +44,16 @@ export default {
         },
     },
     methods: {
+        clearForm() {
+            this.form.combobox = "";
+            this.form.price = "";
+            this.form.items.items = [];
+            this.form.items.total = 0;
+            this.form.tags = [];
+            this.form.date = "";
+            this.form.description = "";
+        },
+
         addItem() {
             const item = {
                 name: this.form.combobox,
@@ -68,7 +70,13 @@ export default {
         },
 
         addTag(i) {
-            if (i != "") this.form.tags.push(i);
+            if (i != "") {
+                if (this.form.tags.length > 3) {
+                    alert("To many tags");
+                } else {
+                    this.form.tags.push(i);
+                }
+            }
         },
 
         removeTag(index) {
@@ -77,10 +85,6 @@ export default {
 
         saveForm() {
             this.clearForm();
-        },
-
-        changeCombobox(i) {
-            this.form.combobox = i;
         },
     },
     components: {
@@ -128,25 +132,29 @@ export default {
                             <li class="bg-green-100 p-2 flex whitespace-nowrap">
                                 Service items
                             </li>
-                            <li
-                                class="bg-red-100 rounded-sm p-2 flex whitespace-nowrap"
-                                v-if="form.items.items > 0"
-                                v-for="item in form.items.items"
-                            >
-                                <span class="font-bold mr-10 w-full">{{
-                                    item.name
-                                }}</span>
-                                <span> {{ item.price }} </span>
-                            </li>
+                            <div></div>
+
+                            <template v-if="form.items.items.length > 0">
+                                <li
+                                    class="bg-red-100 rounded-sm p-2 flex whitespace-nowrap"
+                                    v-for="item in form.items.items"
+                                >
+                                    <span class="mr-10 w-full uppercase">{{
+                                        item.name
+                                    }}</span>
+                                    <span> R$ {{ item.price }} </span>
+                                </li>
+                            </template>
+
                             <li v-else class="p-5">No service items here !</li>
 
                             <li class="bg-green-100 p-2 flex whitespace-nowrap">
                                 <span class="font-bold mr-10 w-full"
                                     >Total
                                 </span>
-                                <span class="font-bold">{{
-                                    form.items.total
-                                }}</span>
+                                <span class="font-bold">
+                                    R$ {{ form.items.total }}</span
+                                >
                             </li>
                         </ul>
                     </div>
@@ -186,7 +194,11 @@ export default {
                                 </div>
                             </div>
                         </div>
-                        <AppInput placeholder="Add new tag" :action="addTag" />
+                        <AppInput
+                            placeholder="Add new tag"
+                            :action="addTag"
+                            maxLength="15"
+                        />
                     </div>
 
                     <div class="my-10">
@@ -195,15 +207,19 @@ export default {
                         >
                             <p class="font-bold">It's already finished</p>
                             <Switch
-                                v-model="enabled"
-                                :class="enabled ? 'bg-teal-900' : 'bg-teal-700'"
+                                v-model="form.finished"
+                                :class="
+                                    form.finished
+                                        ? 'bg-teal-900'
+                                        : 'bg-teal-700'
+                                "
                                 class="relative inline-flex h-7 w-12 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
                             >
                                 <span class="sr-only">Use setting</span>
                                 <span
                                     aria-hidden="true"
                                     :class="
-                                        enabled
+                                        form.finished
                                             ? 'translate-x-5'
                                             : 'translate-x-0'
                                     "

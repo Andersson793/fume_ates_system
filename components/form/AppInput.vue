@@ -33,6 +33,5 @@ export default {
         :placeholder="$props.placeholder"
         class="px-2 py-4 w-full mr-3 rounded-sm"
         v-model="inputValue"
-        @change="action(inputValue)"
     />
 </template>
