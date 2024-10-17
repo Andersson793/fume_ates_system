@@ -129,13 +129,13 @@ export default {
         <AppPanel title_panel="Title panel">
             <Doughnut
                 :data="charts.Doughnut.data"
-                :options="charts.Doughnut.options"  
-            />          
+                :options="charts.Doughnut.options"
+            />
             <div class="mt-5 flex justify-center">
                 <div
-                    class="p-1  cursor-pointer inline-flex items-center"
+                    class="p-1 cursor-pointer inline-flex items-center"
                     v-for="(value, index) in charts.Doughnut.data.labels"
-                    :title="charts.Doughnut.data.labels[index]"
+                    :title="charts.Doughnut.data.datasets[0].data[index]"
                 >
                     <div
                         class="rounded-full w-5 h-5 mr-2"
