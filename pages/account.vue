@@ -9,7 +9,9 @@ export default {
             id: useId(),
         };
     },
-    methods: {},
+    mounted() {
+        useWebsiteStore().currentPage = this.$route.name;
+    },
     components: { AppInput, AppButton, AppMain },
 };
 </script>

@@ -41,6 +41,9 @@ export default {
             ],
         };
     },
+    mounted() {
+        useWebsiteStore().currentPage = this.$route.name;
+    },
     methods: {
         removeAlert(index) {
             this.alerts.splice(index, 1);
