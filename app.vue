@@ -71,7 +71,7 @@ export default {
                                 Dashboard
                             </MenuItem>
                         </NuxtLink>
-                        <NuxtLink to="/">
+                        <NuxtLink to="/config">
                             <MenuItem>
                                 <template #icon>
                                     <BoltIcon />
